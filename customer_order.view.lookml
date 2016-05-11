@@ -10,7 +10,7 @@
   fields:
 
   - dimension: CUSTOMER_ID
-    primary_key: true
+    primary_key: false
     
   - measure: ORDER_COUNT
     type: number
