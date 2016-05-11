@@ -1,24 +1,16 @@
 - view: customer_order
-
-# # Specify the table name if it's different from the view name:
-#   sql_table_name: my_schema_name.customer_order
-#
-# # Or, you could make this view a derived table, like this:
-#   derived_table:
-#     sql: |
-#       SELECT
-#         users.id as user_id
-#         , COUNT(*) as lifetime_orders
-#         , MAX(orders.date) as most_recent_purchase_date
-#       FROM orders
-#       GROUP BY user.id
-
+  derived_table:
+    sql: |
+      SELECT `Customer ID` as CUSTOMER_ID
+        , COUNT(1) AS ORDER_COUNT
+      FROM `superstore`.`Orders`
+      GROUP BY `Customer ID`
+    indexes: [CUSTOMER_ID]
+    persist_for: 12 hours
   fields:
-# #     Define your dimensions and measures here, like this:
-#     - dimension: profit
-#       type: number
-#       sql: ${TABLE}.profit
-#
-#     - measure: total_profit
-#       type: sum
-#       sql: ${profit}
+
+  - dimension: CUSTOMER_ID
+    primary_key: true
+    
+  - measure: ORDER_COUNT
+    type: number
